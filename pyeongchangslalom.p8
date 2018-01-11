@@ -5,5 +5,5 @@ __lua__
 -- by mario zoth & radek jedrasiak
 
 function _init() end
-function _update60 end
-function _draw end
+function _update60() end
+function _draw() end
