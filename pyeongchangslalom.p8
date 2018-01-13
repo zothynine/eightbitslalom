@@ -15,6 +15,7 @@ __lua__
 --  fanfare
 
 function update_start()
+	if btn(5) then countin=0 end
 	if not timer.paused then
 		update_timer()
 	end
@@ -26,29 +27,42 @@ function draw_start()
 	rectfill(0,0,127,150,12)
 	--berg
 	circfill(64,288,200,7)
-	--titeltext
-	print("derstandard.at slalom",23,11,0)
-	print("derstandard.at slalom",22,10,7)
-	print("olypia 2018",43,43,0)
-	print("olypia 2018",42,42,7)
-	--olympische ringe
-	local ring_x=49
-	local ring_y=25
-	local ring_rad=6
-	circ(ring_x,ring_y,ring_rad,1)
-	circ(ring_x+7,ring_y+7,ring_rad,10)
-	circ(ring_x+14,ring_y,ring_rad,0)
-	circ(ring_x+21,ring_y+7,ring_rad,3)
-	circ(ring_x+28,ring_y,ring_rad,8)
-	print("starte mit ❎",38,55,7)
-	print("steuere mit ⬅️➡️",34,62,7)
+	if countin!=-1 then
+		countin=mid(1,countin+1,180)
+		if countin==180 then
+			print("los!",58,50)
+		elseif countin>119 then
+			print("1",62,50)
+		elseif countin>59 then
+			print("2",62,50)
+		else
+			print("3",62,50)
+		end
+	else
+		--titeltext
+ 	print("derstandard.at slalom",23,11,0)
+ 	print("derstandard.at slalom",22,10,7)
+ 	print("olypia 2018",43,43,0)
+ 	print("olypia 2018",42,42,7)
+ 	--olympische ringe
+ 	local ring_x=49
+ 	local ring_y=25
+ 	local ring_rad=6
+ 	circ(ring_x,ring_y,ring_rad,1)
+ 	circ(ring_x+7,ring_y+7,ring_rad,10)
+ 	circ(ring_x+14,ring_y,ring_rad,0)
+ 	circ(ring_x+21,ring_y+7,ring_rad,3)
+ 	circ(ring_x+28,ring_y,ring_rad,8)
+ 	print("starte mit ❎",38,55,7)
+ 	print("steuere mit ⬅️➡️",34,62,7)
+	end
 	--map
 	map(0,0,0,120,16,64)
 	--starthaus
 	spr(0,57,80,2,2)
 	--rennlaeufer
 	spr(3,60,89,1,2)
-	print(timer.output,94,120,0)
+	--print(timer.output,94,120,0)
 end
 	
 function write_timer_output(f,s,m)
@@ -81,6 +95,7 @@ function update_timer()
 end
 
 function _init()
+	countin=-1
 	timer={
 		frames=0,
 		seconds=0,
