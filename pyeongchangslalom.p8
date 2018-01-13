@@ -14,7 +14,11 @@ __lua__
 --  publikum zieleinfahrt
 --  fanfare
 
-function update_start()end
+function update_start()
+	if not timer.paused then
+		update_timer()
+	end
+end
 
 function draw_start()
 	cls()
@@ -44,9 +48,47 @@ function draw_start()
 	spr(0,57,80,2,2)
 	--rennlaeufer
 	spr(3,60,89,1,2)
+	print(timer.output,94,120,0)
+end
+	
+function write_timer_output(f,s,m)
+	local h=flr(f*1.6)
+	local fstr=tostr(h)
+	local sstr=tostr(s)
+	local mstr=tostr(m)
+	if h<10 then fstr="0"..fstr end
+	if s<10 then sstr="0"..sstr end
+	if m<10 then mstr="0"..mstr end
+	timer.output=mstr..":"..sstr..":"..fstr
+end
+
+function update_timer()
+	local f=timer.frames
+	local s=timer.seconds
+	local m=timer.minutes
+	if f < 59 then f+=1 else
+		f=0
+		
+		if s < 59 then s+=1 else
+			s=0
+			m+=1
+		end
+	end
+	timer.frames=f
+	timer.seconds=s
+	timer.minutes=m
+	write_timer_output(f,s,m)
 end
 
 function _init()
+	timer={
+		frames=0,
+		seconds=0,
+		minutes=0,
+		output="00:00:00",
+		paused=true
+	}
+ 
 	_update60=update_start
 	_draw=draw_start
 end
