@@ -23,19 +23,21 @@ function draw_start()
 	--berg
 	circfill(64,288,200,7)
 	--titeltext
-	print("derstandard.at slalom",23,21,0)
-	print("derstandard.at slalom",22,20,7)
-	print("olypia 2018",43,31,0)
-	print("olypia 2018",42,30,7)
+	print("derstandard.at slalom",23,11,0)
+	print("derstandard.at slalom",22,10,7)
+	print("olypia 2018",43,43,0)
+	print("olypia 2018",42,42,7)
 	--olympische ringe
 	local ring_x=49
-	local ring_y=50
+	local ring_y=25
 	local ring_rad=6
 	circ(ring_x,ring_y,ring_rad,1)
 	circ(ring_x+7,ring_y+7,ring_rad,10)
 	circ(ring_x+14,ring_y,ring_rad,0)
 	circ(ring_x+21,ring_y+7,ring_rad,3)
 	circ(ring_x+28,ring_y,ring_rad,8)
+	print("starte mit ❎",38,55,7)
+	print("steuere mit ⬅️➡️",34,62,7)
 	--map
 	map(0,0,0,120,16,64)
 	--starthaus
