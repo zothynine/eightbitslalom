@@ -27,20 +27,21 @@ function draw_start()
 	--himmel
 	rectfill(0,0,127,150,12)
 	--berg
-	circfill(64,288,200,7)
+	circfill(64,288-scene_offset,200,7)
 	if countin!=-1 then
 		countin=mid(1,countin+1,180)
+		scene_offset=mid(0,scene_offset+1,35)
 		if countin==180 then
 			print("los!",58,50)
 			timer.paused=false
 			_update60=update_game
 			_draw=draw_game
 		elseif countin>119 then
-			print("1",62,50)
+			print("1",62,60-scene_offset)
 		elseif countin>59 then
-			print("2",62,50)
+			print("2",62,60-scene_offset)
 		else
-			print("3",62,50)
+			print("3",62,60-scene_offset)
 		end
 	else
 		--titeltext
@@ -61,12 +62,11 @@ function draw_start()
  	print("steuere mit ⬅️➡️",34,62,7)
 	end
 	--map
-	map(0,0,0,120,16,64)
+	map(0,0,0,120-scene_offset,16,64)
 	--starthaus
-	spr(0,57,80,2,2)
+	spr(0,57,80-scene_offset,2,2)
 	--rennlaeufer
-	spr(3,60,89,1,2)
-	--print(timer.output,94,120,0)
+	spr(3,60,89-scene_offset,1,2)
 end
 
 function _init()
@@ -78,6 +78,9 @@ function _init()
 		output="00:00:00",
 		paused=true
 	}
+	camera_x=0
+	camera_y=0
+	scene_offset=0
  
 	_update60=update_start
 	_draw=draw_start
@@ -121,22 +124,24 @@ function update_game()
 	if not timer.paused then
 		update_timer()
 	end
+	camera_y+=1
 end
 
 function draw_game()
 	cls()
+	camera(camera_x,camera_y)
 	--himmel
 	rectfill(0,0,127,150,12)
 	--berg
-	circfill(64,288,200,7)
-	print("los!",58,50)
+	circfill(64,253,200,7)
+	print("los!",58,25)
 	--map
-	map(0,0,0,120,16,64)
+	map(0,0,0,85,16,64)
 	--starthaus
-	spr(0,57,80,2,2)
+	spr(0,57,45,2,2)
 	--rennlaeufer
-	spr(3,60,89,1,2)
-	print(timer.output,94,120,0)
+	spr(3,camera_x+60,camera_y+54,1,2)
+	print(timer.output,94,camera_y+120,0)
 end
 __gfx__
 00000000000000000000000000000000000000007777777777777775577777777777777557777777000000000000000000000000000000000000000000000000
