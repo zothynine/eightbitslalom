@@ -20,19 +20,26 @@ function _update60() end
 
 function _draw()
 	cls()
+	--himmel
 	rectfill(0,0,127,150,12)
+	--berg
 	circfill(64,288,200,7)
+	--titeltext
 	print("derstandard.at slalom",24,21,0)
 	print("derstandard.at slalom",23,20,7)
 	print("olypia 2018",41,31,0)
 	print("olypia 2018",40,30,7)
+	--olympische ringe
 	circ(47,50,6,1)
 	circ(54,57,6,10)
 	circ(61,50,6,0)
 	circ(68,57,6,3)
 	circ(75,50,6,8)
+	--map
 	map(0,0,0,120,16,16)
+	--starthaus
 	spr(0,53,80,2,2)
+	--rennlaeufer
 	spr(3,56,89,1,2)
 end
 __gfx__
