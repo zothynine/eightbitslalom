@@ -14,11 +14,12 @@ __lua__
 --  publikum zieleinfahrt
 --  fanfare
 
+--code:
+-- tab1=init u. startscreen
+-- tab2=game
+
 function update_start()
 	if btn(5) then countin=0 end
-	if not timer.paused then
-		update_timer()
-	end
 end
 
 function draw_start()
@@ -31,6 +32,9 @@ function draw_start()
 		countin=mid(1,countin+1,180)
 		if countin==180 then
 			print("los!",58,50)
+			timer.paused=false
+			_update60=update_game
+			_draw=draw_game
 		elseif countin>119 then
 			print("1",62,50)
 		elseif countin>59 then
@@ -64,6 +68,25 @@ function draw_start()
 	spr(3,60,89,1,2)
 	--print(timer.output,94,120,0)
 end
+
+function _init()
+	countin=-1
+	timer={
+		frames=0,
+		seconds=0,
+		minutes=0,
+		output="00:00:00",
+		paused=true
+	}
+ 
+	_update60=update_start
+	_draw=draw_start
+end
+
+function _update60() end
+function _draw() end
+-->8
+
 	
 function write_timer_output(f,s,m)
 	local h=flr(f*1.6)
@@ -94,22 +117,27 @@ function update_timer()
 	write_timer_output(f,s,m)
 end
 
-function _init()
-	countin=-1
-	timer={
-		frames=0,
-		seconds=0,
-		minutes=0,
-		output="00:00:00",
-		paused=true
-	}
- 
-	_update60=update_start
-	_draw=draw_start
+function update_game()
+	if not timer.paused then
+		update_timer()
+	end
 end
 
-function _update60() end
-function _draw() end
+function draw_game()
+	cls()
+	--himmel
+	rectfill(0,0,127,150,12)
+	--berg
+	circfill(64,288,200,7)
+	print("los!",58,50)
+	--map
+	map(0,0,0,120,16,64)
+	--starthaus
+	spr(0,57,80,2,2)
+	--rennlaeufer
+	spr(3,60,89,1,2)
+	print(timer.output,94,120,0)
+end
 __gfx__
 00000000000000000000000000000000000000007777777777777775577777777777777557777777000000000000000000000000000000000000000000000000
 000ee000000000000000000000000000000000007777777777777757757777777777775775777777000000000000000000000000000000000000000000000000
