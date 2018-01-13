@@ -14,7 +14,7 @@ __lua__
 --  publikum zieleinfahrt
 --  fanfare
 
-function update_start() end
+function update_start()end
 
 function draw_start()
 	cls()
@@ -37,7 +37,7 @@ function draw_start()
 	circ(ring_x+21,ring_y+7,ring_rad,3)
 	circ(ring_x+28,ring_y,ring_rad,8)
 	--map
-	map(0,0,0,120,16,16)
+	map(0,0,0,120,16,64)
 	--starthaus
 	spr(0,57,80,2,2)
 	--rennlaeufer
