@@ -14,11 +14,9 @@ __lua__
 --  publikum zieleinfahrt
 --  fanfare
 
-function _init() end
+function update_start() end
 
-function _update60() end
-
-function _draw()
+function draw_start()
 	cls()
 	--himmel
 	rectfill(0,0,127,150,12)
@@ -45,6 +43,14 @@ function _draw()
 	--rennlaeufer
 	spr(3,60,89,1,2)
 end
+
+function _init()
+	_update60=update_start
+	_draw=draw_start
+end
+
+function _update60() end
+function _draw() end
 __gfx__
 00000000000000000000000000000000000000007777777777777775577777777777777557777777000000000000000000000000000000000000000000000000
 000ee000000000000000000000000000000000007777777777777757757777777777775775777777000000000000000000000000000000000000000000000000
