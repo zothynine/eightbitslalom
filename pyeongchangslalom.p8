@@ -17,6 +17,8 @@ __lua__
 --code:
 -- tab1=init u. startscreen
 -- tab2=game
+-- spriteflags:
+--  xooooooo = rough ground
 
 function update_start()
 	if btn(5) then countin=0 end
