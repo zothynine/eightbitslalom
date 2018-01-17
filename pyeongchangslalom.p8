@@ -85,6 +85,7 @@ function _init()
 	}
 	camera_x=0
 	camera_y=0
+	camera_y_max=1560
 	scene_offset=0
 	skier={
 		spr_nr=33,
@@ -104,8 +105,6 @@ end
 function _update60() end
 function _draw() end
 -->8
-
-	
 function write_timer_output(f,s,m)
 	local h=flr(f*1.6)
 	local fstr=tostr(h)
@@ -139,8 +138,8 @@ function update_game()
 	if not timer.paused then
 		update_timer()
 	end
-	camera_y=mid(0,camera_y+skier.speed,1621)
-	if camera_y==1621 then
+	camera_y=mid(0,camera_y+skier.speed,camera_y_max)
+	if camera_y==camera_y_max then
 		timer.paused=true
 	end
 	if btnp(0) then
@@ -174,7 +173,7 @@ end
 function draw_game()
 	cls()
 	camera(camera_x,camera_y)
-	print("los!",58,25)
+	print("los!",58,50,7)
 	--map
 	map(0,0,0,0,16,64) --teil1
 	--himmel
@@ -186,10 +185,10 @@ function draw_game()
 	spr(0,57,45,2,2)
 	--rennlaeufer
 	spr(skier.spr_nr,camera_x+skier.x,camera_y+skier.y,1,2)
-	map(114,60,8,1645,16,32) --zielbanner
+	map(114,60,8,1560,16,32) --zielbanner
 	--bannerbeschriftung
- print("▒ziel▒",51,1652,1)
- print("▒ziel▒",50,1651,7)
+ print("▒ziel▒",51,1567,1)
+ print("▒ziel▒",50,1567,7)
  print(timer.output,80,camera_y+118,0)
  
  print(skier.collision,3,camera_y+3)
