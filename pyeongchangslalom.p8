@@ -36,11 +36,11 @@ function draw_start()
   countin=mid(1,countin+1,180)
   scene_offset=mid(0,scene_offset+1,35)
   if countin==180 then
-   print("los!",58,50,7)
    timer.paused=false
    skier.spr_nr=34
    skier.speed=2
    skier.y=54
+   print("los!",58,50,7)
    _update60=update_game
    _draw=draw_game
   elseif countin>119 then
@@ -96,6 +96,7 @@ function _init()
 		coll_cel=0,
 		collision=0,
 		speed=1,
+		over_finishline=false,
 		disqualified=false
 	}
  map_part=0
@@ -159,29 +160,35 @@ function update_game()
  	elseif btnp(1) then
  		skier.spr_nr=mid(32,skier.spr_nr+1,36)
  	end
- 	if skier.spr_nr==34 then
- 		skier.speed=2
- 	elseif skier.spr_nr==33
- 					or skier.spr_nr==35 then
- 		skier.speed=1
- 	elseif skier.spr_nr==32
- 					or	skier.spr_nr==36 then
- 		skier.speed=0.5	
- 	end
-	end
-	if skier.collision==1 or skier.collision==3 then
-		skier.speed=0.5
-	end
-	if skier.collision==2 or skier.collision==3  then
-		skier.disqualified=true
-	end
-	if skier.collision==8 then
-		timer.paused=true
-	end
-	if skier.spr_nr > 34 then
-		skier.x=mid(0,skier.x+skier.speed,120)
-	elseif skier.spr_nr < 34 then
-		skier.x=mid(0,skier.x-skier.speed,120)
+ 	if skier.over_finishline then
+ 		skier.speed=mid(0,skier.speed-0.1,2)
+ 		skier.spr_nr=mid(32,skier.spr_nr-1,36)
+ 	else
+  	if skier.spr_nr==34 then
+  		skier.speed=2
+  	elseif skier.spr_nr==33
+  					or skier.spr_nr==35 then
+  		skier.speed=1
+  	elseif skier.spr_nr==32
+  					or	skier.spr_nr==36 then
+  		skier.speed=0.5	
+  	end
+   	if skier.collision==1 or skier.collision==3 then
+   		skier.speed=0.5
+   	end
+   	if skier.collision==2 or skier.collision==3  then
+   		skier.disqualified=true
+   	end
+   	if skier.collision==8 then
+   		skier.over_finishline=true
+   		timer.paused=true
+   	end
+   	if skier.spr_nr>34 then
+   		skier.x=mid(0,skier.x+skier.speed,120)
+   	elseif skier.spr_nr<34 then
+   		skier.x=mid(0,skier.x-skier.speed,120)
+   	end
+  end
 	end
 	map_part=flr((camera_y+skier.y)/512)
 	skier.cel_x=flr((skier.x)/8)+(map_part*16)
@@ -193,7 +200,6 @@ end
 function draw_game()
 	cls()
 	camera(camera_x,camera_y)
-	print("los!",58,50,7)
 	--map
 	map(0,0,0,0,16,64) --teil1
 	--himmel
@@ -204,7 +210,8 @@ function draw_game()
 	--starthaus
 	spr(0,57,45,2,2)
 	--rennlaeufer
-	spr(skier.spr_nr,camera_x+skier.x,camera_y+skier.y,1,2)
+	spr(skier.spr_nr,skier.x,camera_y+skier.y,1,2)
+	print("los!",58,50,7)
 	map(114,60,8,1560,16,32) --zielbanner
 	--bannerbeschriftung
  print("▒ziel▒",51,1567,1)
