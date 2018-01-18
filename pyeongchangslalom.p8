@@ -143,42 +143,58 @@ function update_timer()
 end
 
 function update_game()
+	map_part=flr((camera_y+skier.y)/512)
+	skier.cel_x=flr((skier.x)/8)+(map_part*16)
+	skier.cel_y=flr((camera_y+skier.y)/8)-(map_part*64)
+	skier.coll_cel=mget(skier.cel_x,skier.cel_y+1)
+	skier.collision=fget(skier.coll_cel)
+	
 	if skier.collision==1 or skier.collision==3 then
 		skier.speed=0.5
 	end
+	
 	if skier.collision==2 or skier.collision==3  then
 		skier.disqualified=true
 	end
+	
 	if skier.collision==8 then
 		skier.over_finishline=true
 		timer.paused=true
 	end
-	if skier.spr_nr>34 then
-		skier.x=mid(0,skier.x+skier.speed,120)
-	elseif skier.spr_nr<34 then
-		skier.x=mid(0,skier.x-skier.speed,120)
-	end
+	
 	if not timer.paused then
 		update_timer()
 	end
+	
 	camera_y=mid(0,camera_y+skier.speed,camera_y_max)
+	
 	if camera_y==camera_y_max then
 		timer.paused=true
 	end
+	
 	if skier.disqualified then
 		timer.paused=true
 		skier.speed=mid(0,skier.speed-0.1,2)
 	else
+	
  	if btnp(0) then
  		skier.speed=mid(0.5,skier.speed-1,2)
  		skier.spr_nr=mid(32,skier.spr_nr-1,36)
  	elseif btnp(1) then
  		skier.spr_nr=mid(32,skier.spr_nr+1,36)
  	end
+ 	
  	if skier.over_finishline then
  		skier.speed=mid(0,skier.speed-0.1,2)
  		skier.spr_nr=mid(32,skier.spr_nr-1,36)
  	else
+  	
+  	if skier.spr_nr>34 then
+  		skier.x=mid(0,skier.x+skier.speed,120)
+  	elseif skier.spr_nr<34 then
+  		skier.x=mid(0,skier.x-skier.speed,120)
+  	end
+  	
   	if skier.spr_nr==34 then
   		skier.speed=2
   	elseif skier.spr_nr==33
@@ -190,11 +206,6 @@ function update_game()
   	end
   end
 	end
-	map_part=flr((camera_y+skier.y)/512)
-	skier.cel_x=flr((skier.x)/8)+(map_part*16)
-	skier.cel_y=flr((camera_y+skier.y)/8)-(map_part*64)
-	skier.coll_cel=mget(skier.cel_x,skier.cel_y+1)
-	skier.collision=fget(skier.coll_cel)
 end
 
 function draw_game()
@@ -217,8 +228,7 @@ function draw_game()
  print("▒ziel▒",51,1567,1)
  print("▒ziel▒",50,1567,7)
  print(timer.output,80,camera_y+118,0)
- 
- --print(skier.collision,3,camera_y+3)
+
  if skier.disqualified then
  	rectfill(0,camera_y+80,127,camera_y+90,8)
  	print("disqualifiziert!",36,camera_y+83,7)
