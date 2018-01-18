@@ -143,6 +143,21 @@ function update_timer()
 end
 
 function update_game()
+	if skier.collision==1 or skier.collision==3 then
+		skier.speed=0.5
+	end
+	if skier.collision==2 or skier.collision==3  then
+		skier.disqualified=true
+	end
+	if skier.collision==8 then
+		skier.over_finishline=true
+		timer.paused=true
+	end
+	if skier.spr_nr>34 then
+		skier.x=mid(0,skier.x+skier.speed,120)
+	elseif skier.spr_nr<34 then
+		skier.x=mid(0,skier.x-skier.speed,120)
+	end
 	if not timer.paused then
 		update_timer()
 	end
@@ -173,21 +188,6 @@ function update_game()
   					or	skier.spr_nr==36 then
   		skier.speed=0.5	
   	end
-   	if skier.collision==1 or skier.collision==3 then
-   		skier.speed=0.5
-   	end
-   	if skier.collision==2 or skier.collision==3  then
-   		skier.disqualified=true
-   	end
-   	if skier.collision==8 then
-   		skier.over_finishline=true
-   		timer.paused=true
-   	end
-   	if skier.spr_nr>34 then
-   		skier.x=mid(0,skier.x+skier.speed,120)
-   	elseif skier.spr_nr<34 then
-   		skier.x=mid(0,skier.x-skier.speed,120)
-   	end
   end
 	end
 	map_part=flr((camera_y+skier.y)/512)
