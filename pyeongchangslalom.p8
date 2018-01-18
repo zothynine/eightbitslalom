@@ -22,6 +22,7 @@ __lua__
 --  -x------/2 = missed pole
 --  --x-----/4 = crash
 --  ---x----/8 = finish line
+
 function update_start()
 	if btn(5) then countin=0 end
 end
@@ -76,13 +77,6 @@ end
 
 function _init()
 	countin=-1
-	timer={
-		frames=0,
-		seconds=0,
-		minutes=0,
-		output="00:00:00",
-		paused=true
-	}
 	camera_x=0
 	camera_y=0
 	camera_y_max=1560
@@ -98,6 +92,16 @@ function _init()
 		speed=1,
 		over_finishline=false,
 		disqualified=false
+	}
+	timer={
+		x=80,
+		y=118,
+		colour=0,
+		frames=0,
+		seconds=0,
+		minutes=0,
+		output="00:00:00",
+		paused=true
 	}
  map_part=0
 	_update60=update_start
@@ -222,17 +226,27 @@ function draw_game()
 	spr(0,57,45,2,2)
 	--rennlaeufer
 	spr(skier.spr_nr,skier.x,camera_y+skier.y,1,2)
-	print("los!",58,50,7)
+	print("los!",58,50-scene_offset,7)
 	map(114,60,8,1560,16,32) --zielbanner
 	--bannerbeschriftung
- print("▒ziel▒",51,1567,1)
- print("▒ziel▒",50,1567,7)
- print(timer.output,80,camera_y+118,0)
+ print("▒ziel▒",50,1566,1)
+ print("▒ziel▒",49,1566,7)
 
- if skier.disqualified then
+ if skier.over_finishline then
+		rectfill(0,camera_y+80,127,camera_y+90,8)
+		timer.x=50
+		timer.y=83
+		timer.colour=7
+		print(timer.output,timer.x+1,camera_y+timer.y+1,0)
+ elseif skier.disqualified then
  	rectfill(0,camera_y+80,127,camera_y+90,8)
  	print("disqualifiziert!",36,camera_y+83,7)
+ else
  end
+
+ if not skier.disqualified then
+	 print(timer.output,timer.x,camera_y+timer.y,timer.colour)
+	end
 end
 __gfx__
 00000000000000000000000000000000000000007777777777777765567777777777777557777777568888888888888888888865000000000000000000000000
