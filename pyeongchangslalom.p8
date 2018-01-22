@@ -43,7 +43,7 @@ function draw_start()
    skier.y=54
    print("los!",58,50,7)
    sfx(9)
-   _update60=update_game
+   _update=update_game
    _draw=draw_game
   elseif countin>119 then
    print("1",62,60-scene_offset,7)
@@ -93,7 +93,7 @@ function _init()
 		cel_y=0,
 		coll_cel=0,
 		collision=0,
-		speed=1,
+		speed=2,
 		over_finishline=false,
 		disqualified=false
 	}
@@ -108,17 +108,17 @@ function _init()
 		paused=true
 	}
  map_part=0
-	_update60=update_start
+	_update=update_start
 	_draw=draw_start
 	
 	--quickstart for testing
 	--skier.speed=2
 	--skier.spr_nr=34
-	--_update60=update_game
+	--_update=update_game
 	--_draw=draw_game
 end
 
-function _update60() end
+function _update() end
 function _draw() end
 -->8
 function write_timer_output(f,s,m)
@@ -158,7 +158,7 @@ function update_game()
 	skier.collision=fget(skier.coll_cel)
 	
 	if skier.collision==1 or skier.collision==3 then
-		skier.speed=0.5
+		skier.speed=1
 	end
 	
 	if skier.collision==2 or skier.collision==3  then
@@ -189,7 +189,7 @@ function update_game()
 	else
 	
  	if btnp(0) then
- 		skier.speed=mid(0.5,skier.speed-1,2)
+ 		skier.speed=mid(0.5,skier.speed-1,4)
  		skier.spr_nr=mid(32,skier.spr_nr-1,36)
  		if skier.spr_nr == 33 then
  				sfx(10,-1,0,2)
@@ -202,7 +202,7 @@ function update_game()
  	end
  	
  	if skier.over_finishline then
- 		skier.speed=mid(0,skier.speed-0.1,2)
+ 		skier.speed=mid(0,skier.speed-0.1,4)
  		skier.spr_nr=mid(32,skier.spr_nr-1,36)
  	else
   	
@@ -213,13 +213,13 @@ function update_game()
   	end
   	
   	if skier.spr_nr==34 then
-  		skier.speed=2
+  		skier.speed=4
   	elseif skier.spr_nr==33
   					or skier.spr_nr==35 then
-  		skier.speed=1
+  		skier.speed=2
   	elseif skier.spr_nr==32
   					or	skier.spr_nr==36 then
-  		skier.speed=0.5	
+  		skier.speed=1
   	end
   end
 	end
