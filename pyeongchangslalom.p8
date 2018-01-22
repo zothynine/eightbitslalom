@@ -152,8 +152,12 @@ end
 
 function update_game()
 	map_part=flr((camera_y+skier.y)/512)
-	skier.cel_x=flr((skier.x)/8)+(map_part*16)
-	skier.cel_y=flr((camera_y+skier.y)/8)-(map_part*64)
+	--skier.cel_x=flr((skier.x)/8)+(map_part*16)
+	--skier.cel_y=flr((camera_y+skier.y)/8)-(map_part*64)
+
+   skier.cel_x=flr((skier.x+4)/8) + (map_part*16) 
+   skier.cel_y=flr((camera_y+skier.y+4)/8) - (map_part*64)
+	
 	skier.coll_cel=mget(skier.cel_x,skier.cel_y+1)
 	skier.collision=fget(skier.coll_cel)
 	
@@ -260,6 +264,10 @@ function draw_game()
  if not skier.disqualified then
 	 print(timer.output,timer.x,camera_y+timer.y,timer.colour)
 	end
+	
+--print(skier.cel_x..":"..skier.cel_y,5,camera_y+5,3)
+--print(skier.cel_x..":"..skier.cel_y,5,camera_y+5,3)
+--print(map_part,10,camera_y+10,3)
 end
 __gfx__
 00000000000000000000000000000000000000007777777777777765567777777777777557777777568888888888888888888865000000000000000000000000
