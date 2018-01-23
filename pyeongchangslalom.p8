@@ -118,7 +118,7 @@ function _update() end
 function _draw() end
 -->8
 function write_timer_output(f,s,m)
-	local h=flr(f*1.6)
+	local h=flr(f*3.2)
 	local fstr=tostr(h)
 	local sstr=tostr(s)
 	local mstr=tostr(m)
