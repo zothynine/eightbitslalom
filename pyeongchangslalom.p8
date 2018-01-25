@@ -25,6 +25,7 @@ end
 
 function draw_start()
 	cls()
+	camera(camera_x,camera_y)
 	--map
  map(0,0,0,0,16,64)
  --himmel
@@ -75,6 +76,39 @@ function draw_start()
 	spr(skier.spr_nr,skier.x,skier.y-scene_offset,1,2)
 end
 
+function reset_game()
+	countin=-1
+	camera_x=0
+	camera_y=0
+	camera_y_max=1560
+	scene_offset=0
+	
+	skier.spr_nr=33
+	skier.x=60
+	skier.y=89
+	skier.cel_x=0
+	skier.cel_y=0
+	skier.coll_cel=0
+	skier.collision=0
+	skier.speed=2
+	skier.over_finishline=false
+	skier.disqualified=false
+	
+	
+	timer.x=80
+	timer.y=118
+	timer.colour=0
+	timer.frames=0
+	timer.seconds=0
+	timer.minutes=0
+	timer.output="00:00:00"
+	timer.paused=true
+
+ map_part=0
+	_update=update_start
+	_draw=draw_start
+end
+
 function _init()
 	countin=-1
 	camera_x=0
@@ -106,12 +140,6 @@ function _init()
  map_part=0
 	_update=update_start
 	_draw=draw_start
-	
-	--quickstart for testing
-	--skier.speed=2
-	--skier.spr_nr=34
-	--_update=update_game
-	--_draw=draw_game
 end
 
 function _update() end
@@ -147,6 +175,9 @@ function update_timer()
 end
 
 function update_game()
+	--if btn(4) then
+	--	reset_game()
+	--end
 	map_part=flr((camera_y+skier.y)/512)
 	--skier.cel_x=flr((skier.x)/8)+(map_part*16)
 	--skier.cel_y=flr((camera_y+skier.y)/8)-(map_part*64)
