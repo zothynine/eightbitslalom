@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 15
 __lua__
 -- pyeongchang slalom
--- by mario zoth radek jedrasiak klemens kunz
+-- by mario zoth and klemens kunz
 
 -- todos:
 -- sfx/music
@@ -20,7 +20,9 @@ __lua__
 --  ---x----/8 = finish line
 
 function update_start()
-	if btn(5) then countin=0 end
+	if btn(5) and countin==-1 then
+		countin=0
+	end
 end
 
 function draw_start()
@@ -110,6 +112,7 @@ function reset_game()
 end
 
 function _init()
+	game_over=false
 	countin=-1
 	camera_x=0
 	camera_y=0
@@ -138,6 +141,7 @@ function _init()
 		paused=true
 	}
  map_part=0
+ 
 	_update=update_start
 	_draw=draw_start
 end
@@ -175,9 +179,10 @@ function update_timer()
 end
 
 function update_game()
-	--if btn(4) then
-	--	reset_game()
-	--end
+	if btn(5) then
+			if (game_over) _init()
+	end
+	
 	map_part=flr((camera_y+skier.y)/512)
 	--skier.cel_x=flr((skier.x)/8)+(map_part*16)
 	--skier.cel_y=flr((camera_y+skier.y)/8)-(map_part*64)
@@ -217,6 +222,7 @@ function update_game()
 	if skier.disqualified then
 		timer.paused=true
 		skier.speed=mid(0,skier.speed-0.1,2)
+		game_over=true
 	else
 	
  	if btnp(0) then
@@ -235,6 +241,7 @@ function update_game()
  	if skier.over_finishline then
  		skier.speed=mid(0,skier.speed-0.1,4)
  		skier.spr_nr=mid(32,skier.spr_nr-1,36)
+ 		game_over=true
  	else
   	
   	if skier.spr_nr>34 then
@@ -291,10 +298,6 @@ function draw_game()
  if not skier.disqualified then
 	 print(timer.output,timer.x,camera_y+timer.y,timer.colour)
 	end
-	
---print(skier.cel_x..":"..skier.cel_y,5,camera_y+5,3)
---print(skier.cel_x..":"..skier.cel_y,5,camera_y+5,3)
---print(map_part,10,camera_y+10,3)
 end
 __gfx__
 00000000000000000000000000000000000000007777777777777765567777777777777557777777568888888888888888888865000000000000000000000000
