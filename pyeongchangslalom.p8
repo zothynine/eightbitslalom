@@ -16,7 +16,7 @@ __lua__
 music(0)
 
 function update_start()
-	if btn(5) and countin==-1 then
+	if btnp(5) and countin==-1 then
 		countin=0
 	end
 end
@@ -176,7 +176,7 @@ function update_timer()
 end
 
 function update_game()
-	if btn(5) then
+	if btnp(5) then
 			if (game_over) _init()
 	end
 	
