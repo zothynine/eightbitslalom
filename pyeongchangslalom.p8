@@ -109,7 +109,6 @@ function reset_game()
 end
 
 function _init()
-	game_over=false
 	countin=-1
 	camera_x=0
 	camera_y=0
@@ -175,18 +174,19 @@ function update_timer()
 	write_timer_output(f,s,m)
 end
 
+function load_map(num)
+	load("piste"..num)
+end
+
 function update_game()
 	if btnp(5) then
-			if (game_over) _init()
+			if (skier.disqualified) _init()
+			if (skier.over_finishline) load_map(2)
 	end
 	
 	map_part=flr((camera_y+skier.y)/512)
-	--skier.cel_x=flr((skier.x)/8)+(map_part*16)
-	--skier.cel_y=flr((camera_y+skier.y)/8)-(map_part*64)
-
-   skier.cel_x=flr((skier.x+4)/8) + (map_part*16) 
-   skier.cel_y=flr((camera_y+skier.y+4)/8) - (map_part*64)
-	
+ skier.cel_x=flr((skier.x+4)/8) + (map_part*16) 
+ skier.cel_y=flr((camera_y+skier.y+4)/8) - (map_part*64)	
 	skier.coll_cel=mget(skier.cel_x,skier.cel_y+1)
 	skier.collision=fget(skier.coll_cel)
 	
@@ -222,7 +222,6 @@ function update_game()
 	if skier.disqualified then
 		timer.paused=true
 		skier.speed=mid(0,skier.speed-0.1,2)
-		game_over=true
 	else
 	
  	if btnp(0) then
@@ -241,7 +240,6 @@ function update_game()
  	if skier.over_finishline then
  		skier.speed=mid(0,skier.speed-0.1,4)
  		skier.spr_nr=mid(32,skier.spr_nr-1,36)
- 		game_over=true
  	else
   	
   	if skier.spr_nr>34 then
