@@ -14,6 +14,8 @@ function update_start()
 	if btnp(5) and countin==-1 then
 		countin=0
 	end
+	
+	drone_update()
 end
 
 function draw_start()
@@ -24,6 +26,7 @@ function draw_start()
  --himmel
  rectfill(0,0,127,90-scene_offset,12)
  if countin!=-1 then
+ 	if (drone.x > 108) drone.x-=1
   countin=mid(1,countin+1,90)
   scene_offset=mid(0,scene_offset+1,35)
   if countin==90 then
@@ -64,6 +67,39 @@ function draw_start()
 	spr(0,57,80-scene_offset,2,2)
 	--rennlaeufer
 	spr(skier.spr_nr,skier.x,skier.y-scene_offset,1,2)
+	drone_draw()
+end
+
+function drone_update()
+	drone.frame+=1
+	
+	if (drone.frame==30) drone.frame=0
+	
+	if drone.sprite==13 then
+		drone.sprite+=1
+	else
+		drone.sprite-=1
+	end
+	
+	if drone.frame==0 then
+		if drone.y==6 then
+			drone.y=7
+		else
+			drone.y=6
+		end
+	end
+end
+
+function drone_draw()
+	if drone.frame<16 then
+		pal(3,8)
+		pal(11,1)
+	else
+		pal(3,1)
+		pal(11,8)
+	end
+	spr(drone.sprite,drone.x,camera_y+drone.y)
+	pal()
 end
 
 function reset_game()
@@ -137,8 +173,9 @@ function _init()
  
  drone={
  	sprite=13,
- 	x=108,
- 	y=6
+ 	x=135,
+ 	y=6,
+ 	frame=0
  }
  
 	_update=update_start
@@ -178,11 +215,7 @@ function update_timer()
 end
 
 function update_game()
-	if drone.sprite==13 then
-		drone.sprite+=1
-	else
-		drone.sprite-=1
-	end
+	drone_update()
 	
 	if btnp(5) then
 			if (skier.disqualified) _init()
@@ -313,15 +346,7 @@ function draw_game()
 	 print(timer.output,timer.x,camera_y+timer.y,timer.colour)
 	end
 	
-	if timer.frames<16 then
-		pal(3,8)
-		pal(11,1)
-	else
-		pal(3,1)
-		pal(11,8)
-	end
-	spr(drone.sprite,drone.x,camera_y+drone.y)
-	pal()
+	drone_draw()
 end
 __gfx__
 00000000000000000000000000000000000000007777777777777765567777777777777557777777568888888888888888888865000000000000000000000000
