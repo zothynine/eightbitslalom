@@ -62,6 +62,7 @@ function draw_start()
    circ(ring_x+14,ring_y,ring_rad,0)
    circ(ring_x+21,ring_y+7,ring_rad,3)
    circ(ring_x+28,ring_y,ring_rad,8)
+   print("zu durchgang 1 mit [enter]",12,120,12)
  end
 	--starthaus
 	spr(0,57,80-scene_offset,2,2)
