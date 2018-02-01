@@ -1,10 +1,14 @@
 pico-8 cartridge // http://www.pico-8.com
 version 15
 __lua__
--- piste2
+-- durchgang 2
 -- by mario zoth and klemens kunz
 
 music(0)
+
+function load_cart(cart_name)
+	load(cart_name,cart.curr)
+end
 
 function update_start()
 	if btnp(5) and countin==-1 then
@@ -165,10 +169,6 @@ function update_timer()
 	timer.seconds=s
 	timer.minutes=m
 	write_timer_output(f,s,m)
-end
-
-function load_cart(cart_name)
-	load(cart_name,cart.curr)
 end
 
 function update_game()

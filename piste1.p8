@@ -1,7 +1,7 @@
 pico-8 cartridge // http://www.pico-8.com
 version 15
 __lua__
--- pyeongchang slalom
+-- durchgang 1
 -- by mario zoth and klemens kunz
 
 --code:
@@ -149,7 +149,7 @@ function _init()
  
  cart={
  	prev=nil,
- 	curr="pyeongchangslalom",
+ 	curr="piste1",
  	next="piste2"
  }
  
