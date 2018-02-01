@@ -15,9 +15,17 @@ __lua__
 
 music(0)
 
+function load_cart(cart_name)
+	load(cart_name,cart.curr)
+end
+
 function update_start()
 	if btnp(5) and countin==-1 then
 		countin=0
+	end
+		
+	if btnp(4) and cart.next != nil then
+			load_cart(cart.next)
 	end
 end
 
@@ -68,6 +76,7 @@ function draw_start()
    circ(ring_x+28,ring_y,ring_rad,8)
    print("starte mit ❎",38,55,7)
    print("steuere mit ⬅️➡️",34,62,7)
+   print("naechste piste mit [c]",23,73,7)
  end
 	--starthaus
 	spr(0,57,80-scene_offset,2,2)
@@ -178,10 +187,6 @@ function update_timer()
 	timer.seconds=s
 	timer.minutes=m
 	write_timer_output(f,s,m)
-end
-
-function load_cart(cart_name)
-	load(cart_name,cart.curr)
 end
 
 function update_game()
