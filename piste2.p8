@@ -203,7 +203,7 @@ function update_timer()
 	if f < 29 then f+=1 else
 		f=0
 		
-		if s < 29 then s+=1 else
+		if s < 59 then s+=1 else
 			s=0
 			m+=1
 		end
