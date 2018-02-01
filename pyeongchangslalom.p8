@@ -76,7 +76,7 @@ function draw_start()
    circ(ring_x+28,ring_y,ring_rad,8)
    print("starte mit ❎",38,55,7)
    print("steuere mit ⬅️➡️",34,62,7)
-   print("naechste piste mit [c]",23,73,7)
+   print("naechste piste mit [c]",23,120,12)
  end
 	--starthaus
 	spr(0,57,80-scene_offset,2,2)
