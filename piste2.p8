@@ -126,7 +126,7 @@ function _init()
  map_part=0
  
  cart={
- 	prev="pyeongchangslalom",
+ 	prev="piste1",
  	curr="piste2",
  	next=nil
  }
