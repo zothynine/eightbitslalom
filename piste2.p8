@@ -137,8 +137,8 @@ function _init()
  
  drone={
  	sprite=13,
- 	x=113,
- 	y=10
+ 	x=108,
+ 	y=6
  }
  
 	_update=update_start
@@ -316,11 +316,9 @@ function draw_game()
 	if timer.frames<16 then
 		pal(3,8)
 		pal(11,1)
-		drone.x-=mid(110,drone.x-0.1,116)
 	else
 		pal(3,1)
 		pal(11,8)
-		drone.x=mid(110,drone.x+0.1,116)
 	end
 	spr(drone.sprite,drone.x,camera_y+drone.y)
 	pal()
