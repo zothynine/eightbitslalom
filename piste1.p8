@@ -191,7 +191,7 @@ end
 
 function update_game()
 	if btnp(5) then
-			if (skier.disqualified) _init()
+			if (skier.disqualified or skier.over_finishline) _init()
 	end
 	
 	if btnp(4) and cart.next != nil then
